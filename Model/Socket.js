@@ -10,15 +10,15 @@ class Socket {
     }
 
     socketEvent(){
-        this.io.on('connect', socket => {
-            console.log('Nueva Conexion', socket.id);
+        this.io.on('connect', cliente => {
+            console.log('Nueva Conexion', cliente.id);
 
             for (let i in this.historial){
                 this.io.emit('dibujar', {line: this.historial[i]});
             }
 
 
-            socket.on('trazo', (data)=>{
+            cliente.on('trazo', (data)=>{
                 this.historial.push(data.line);
                 this.io.emit('dibujar', {line: data.line})
             });
